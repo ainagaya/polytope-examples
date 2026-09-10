@@ -9,8 +9,7 @@
 #   2. Add a rule under `simulations:`, or widen an existing rule by adding a
 #      value to one of its lists.
 #   3. If the experiment is new, add it to `activity_by_experiment:` so the
-#      activity can be inferred when the caller does not pass one, and add any
-#      alternative spellings to `experiment_aliases:`.
+#      activity can be inferred when the caller does not pass one.
 #
 # ── How rules are matched ──────────────────────────────────────────────────
 #   A rule matches when every selector it declares matches the query.  A
@@ -28,15 +27,6 @@ sites:
   mn5:  polytope.mn5.apps.dte.destination-earth.eu
   lumi: polytope.lumi.apps.dte.destination-earth.eu
   leo:  polytope.leo.apps.dte.destination-earth.eu
-
-# Canonical spelling for experiments that are written in more than one way.
-# Keys are matched case-insensitively; values must be the canonical spelling
-# used in `simulations:` and `activity_by_experiment:` below.
-experiment_aliases:
-  ssp370:  SSP3-7.0
-  ssp3-70: SSP3-7.0
-  ssp3.70: SSP3-7.0
-  tplus2k: Tplus2.0K
 
 # Activity implied by an experiment when the caller does not pass one.
 # `hist` and `cont` exist both as baseline runs and as storylines, so they

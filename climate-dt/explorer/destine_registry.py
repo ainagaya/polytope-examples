@@ -79,26 +79,12 @@ def _norm(value):
     return None if value is None else str(value).strip().lower()
 
 
-def canonical_experiment(experiment, path=None):
-    """Map an experiment spelling onto the one used in the registry.
-
-    e.g. ``"ssp370"`` -> ``"SSP3-7.0"``.  Unknown names are returned
-    unchanged so new experiments work before an alias is added.
-    """
-    if experiment is None:
-        return None
-    aliases = load_registry(path).get("experiment_aliases") or {}
-    lookup = {_norm(k): v for k, v in aliases.items()}
-    return lookup.get(_norm(experiment), experiment)
-
-
 def infer_activity(experiment, path=None):
     """Infer the activity implied by an experiment name.
 
     Raises ValueError for experiments the registry does not know about —
     add them to ``activity_by_experiment:`` in ``simulations.yaml``.
     """
-    experiment = canonical_experiment(experiment, path)
     by_experiment = load_registry(path).get("activity_by_experiment") or {}
     lookup = {_norm(k): v for k, v in by_experiment.items()}
     try:
@@ -129,7 +115,7 @@ def find_rules(model, experiment=None, activity=None,
     query = {
         "model": model,
         "activity": activity,
-        "experiment": canonical_experiment(experiment, path),
+        "experiment": experiment,
         "generation": generation,
     }
     return [rule for rule in registry["simulations"]
@@ -147,7 +133,6 @@ def resolve_address(model, experiment=None, activity=None,
         Model name, e.g. "ICON", "IFS-FESOM", "IFS-NEMO".
     experiment : str, optional
         Experiment name, e.g. "hist", "cont", "SSP3-7.0", "Tplus2.0K".
-        Alternative spellings listed in the registry are accepted.
     activity : str, optional
         "baseline", "projections" or "story-nudging".  Inferred from
         *experiment* when omitted — pass it explicitly for storylines,
