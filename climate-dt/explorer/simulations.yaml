@@ -26,7 +26,7 @@ version: 1
 sites:
   mn5:  polytope.mn5.apps.dte.destination-earth.eu
   lumi: polytope.lumi.apps.dte.destination-earth.eu
-  leo:  polytope.leo.apps.dte.destination-earth.eu
+  leo:  polytope.leonardo.apps.dte.destination-earth.eu
 
 # Activity implied by an experiment when the caller does not pass one.
 # `hist` and `cont` exist both as baseline runs and as storylines, so they
@@ -42,8 +42,9 @@ simulations:
   # ── Generation 1 ─────────────────────────────────────────────────────────
   - site: leo
     generation: 1
-    model: IFS-NEMO
-    notes: All Generation 1 IFS-NEMO simulations, every activity and experiment.
+    model: IFS-FESOM
+    activity: [ScenarioMIP, HighResMIP]
+    experiment: [cont, SSP3-7.0]
 
   # ── Generation 2 ─────────────────────────────────────────────────────────
   - site: mn5
